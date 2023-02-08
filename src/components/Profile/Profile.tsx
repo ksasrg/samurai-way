@@ -1,12 +1,12 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css';
+import ProfileInfo from './ProfilInfo/ProfileInfo';
 
 const Profile = () => {
   return (
-    <div className={s.content}>
-      <div><img className={s.backimg} src="ocean.webp" alt="" /></div>
-      <div>ava + description</div>
+    <div>
+      <ProfileInfo />
       <MyPosts />
     </div>
   );

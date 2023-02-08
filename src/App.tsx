@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Dialogs from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
@@ -7,15 +8,16 @@ import Profile from './components/Profile/Profile';
 
 function App() {
   return (
-    <div className='app-wrapper'>
-      <Header />
-      <Navbar />
-      <div className='app-wrapper-content'>
-        {/* <Profile />  */}
-        <Dialogs />
+    <BrowserRouter >
+      <div className='app-wrapper'>
+        <Header />
+        <Navbar />
+        <div className='app-wrapper-content'>
+          <Route component={Profile} path='/profile' />
+          <Route component={Dialogs} path='/messages'/>
+        </div>
       </div>
-
-    </div>
+    </BrowserRouter >
   );
 }
 

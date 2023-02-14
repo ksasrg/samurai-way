@@ -3,6 +3,7 @@ import s from './Post.module.css';
 
 type PostType = {
   message: string
+  likesCount: number
 }
 
 
@@ -12,7 +13,7 @@ const Post = (props: PostType) => {
       <img src="avatar.webp" alt="" />
       {props.message}
       <div>
-        <span>Like</span>
+        <span>Like </span> <span>{props.likesCount}</span>
       </div>
     </div>
   );

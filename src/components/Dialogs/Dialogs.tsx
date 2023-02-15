@@ -1,27 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import DialogItem from './DialogItem/DialogItem';
 import s from './Dialogs.module.css'
-
-type DialogsPropsType = {
-
-}
-
-type DialogItemPropsType = {
-  name: string
-  id: number
-}
-
-type MessagePropsType = {
-  message: string
-}
-
-const DialogItem = (props: DialogItemPropsType) => {
-  return (
-    <div className={s.dialog}>
-      <NavLink to={'/dialogs/' + props.id}>{props.name}</NavLink>
-    </div>
-  )
-}
+import Message from './Message/Message';
 
 type dialogsType = {
   id: number
@@ -53,16 +34,14 @@ const messages: messagesType[] = [
   { id: 7, message: 'Message7' },
 ]
 
-const Message = (props: MessagePropsType) => {
-  return (
-    <div className={s.message}>{props.message}</div>
-  )
+type DialogsPropsType = {
+
 }
 
 const dialogsElements = dialogs.map(el => <DialogItem name={el.name} id={el.id} />)
 const messagesElements = messages.map(el => <Message message={el.message} />)
 
-const Dialogs = (props: DialogsPropsType) => {
+const Dialogs = () => {
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>

@@ -5,7 +5,9 @@ html {
 .app-wrapper {
   display: grid;
   margin: 0 auto;
-  width: 900px;
+  width: 750px;
+  /* width: 100vw; */
+
   grid-template-areas:
     "h h"
     "n c";

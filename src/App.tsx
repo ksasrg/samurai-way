@@ -7,11 +7,12 @@ import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import { stateType } from './redux/state';
 
-type AppProps = {
+type AppPropsType = {
   state: stateType
+  addPost: (message: string) => void
 }
 
-function App(props: AppProps) {
+function App(props: AppPropsType) {
   return (
     <BrowserRouter >
       <div className='app-wrapper'>
@@ -19,7 +20,9 @@ function App(props: AppProps) {
         <Navbar />
         <div className='app-wrapper-content'>
           <Route component={() =>
-            <Profile postsData={props.state.profilePage}
+            <Profile
+              postsData={props.state.profilePage}
+              addPost={props.addPost}
             />
           } path='/profile' />
           <Route component={() =>

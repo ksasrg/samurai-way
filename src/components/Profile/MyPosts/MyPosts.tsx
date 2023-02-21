@@ -4,23 +4,41 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
 
-type MyPostsPropsType ={
+type MyPostsPropsType = {
   posts: postsDataType[]
+  addPost: (message: string) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
 
   const postsElements =
-    props.posts.map(el => <Post message={el.message} likesCount={el.likesCount} />)
+    props.posts.map(el =>
+      <Post
+      key={el.id}
+        message={el.message}
+        likesCount={el.likesCount}
+      />)
+
+  const newPostElement = React.createRef<HTMLTextAreaElement>()
+
+
+  const addPost = () => {
+    if (newPostElement.current) {
+      props.addPost(newPostElement.current.value);
+      newPostElement.current.value = ''
+    }
+
+
+  }
 
   return (
     <div className={s.postsBlock}>
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea></textarea>
+          <textarea ref={newPostElement} ></textarea>
         </div>
-        <button>Add post</button>
+        <button onClick={addPost} >Add post</button>
       </div>
       <div className={s.posts}>
         {postsElements}

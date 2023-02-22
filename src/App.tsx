@@ -20,14 +20,14 @@ function App(props: AppPropsType) {
         <Header />
         <Navbar />
         <div className='app-wrapper-content'>
-          <Route component={() =>
+          <Route render={() =>
             <Profile
               profilePage={props.state.profilePage}
               addPost={props.addPost}
               updateNewPostText={props.updateNewPostText}
             />
           } path='/profile' />
-          <Route component={() =>
+          <Route render={() =>
             <Dialogs
               dialogsData={props.state.messagesPage}
             />} path='/dialogs' />

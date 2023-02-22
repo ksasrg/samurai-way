@@ -6,7 +6,9 @@ import Post from './Post/Post';
 
 type MyPostsPropsType = {
   posts: postsDataType[]
-  addPost: (message: string) => void
+  newPostText: string
+  addPost: () => void
+  updateNewPostText: (newText: string) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -14,21 +16,21 @@ const MyPosts = (props: MyPostsPropsType) => {
   const postsElements =
     props.posts.map(el =>
       <Post
-      key={el.id}
+        key={el.id}
         message={el.message}
         likesCount={el.likesCount}
       />)
 
   const newPostElement = React.createRef<HTMLTextAreaElement>()
 
-
   const addPost = () => {
+    props.addPost();
+  }
+
+  const onPostChange = () => {
     if (newPostElement.current) {
-      props.addPost(newPostElement.current.value);
-      newPostElement.current.value = ''
+      props.updateNewPostText(newPostElement.current.value)
     }
-
-
   }
 
   return (
@@ -36,7 +38,11 @@ const MyPosts = (props: MyPostsPropsType) => {
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea ref={newPostElement} ></textarea>
+          <textarea
+            ref={newPostElement}
+            value={props.newPostText}
+            onChange={onPostChange}
+          />
         </div>
         <button onClick={addPost} >Add post</button>
       </div>

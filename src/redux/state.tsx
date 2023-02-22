@@ -20,6 +20,7 @@ export type postsDataType = {
 
 export type profilePageType = {
     posts: postsDataType[]
+    newPostText: string
 }
 
 export type messagesPageType = {
@@ -55,16 +56,17 @@ const messages: messagesType[] = [
 const posts: postsDataType[] = [
     { id: 1, message: 'Post1', likesCount: 10 },
     { id: 2, message: 'Post2', likesCount: 9 },
-    { id: 3, message: 'Post3', likesCount: 12 },
-    { id: 4, message: 'Post4', likesCount: 13 },
-    { id: 5, message: 'Post5', likesCount: 14 },
-    { id: 6, message: 'Post6', likesCount: 15 },
-    { id: 7, message: 'Post7', likesCount: 106 },
+    // { id: 3, message: 'Post3', likesCount: 12 },
+    // { id: 4, message: 'Post4', likesCount: 13 },
+    // { id: 5, message: 'Post5', likesCount: 14 },
+    // { id: 6, message: 'Post6', likesCount: 15 },
+    // { id: 7, message: 'Post7', likesCount: 106 },
 ]
 
-export const state = {
+export const state: stateType = {
     profilePage: {
         posts: posts,
+        newPostText: 'new post'
     },
     messagesPage: {
         dialogs: dialogs,
@@ -72,13 +74,19 @@ export const state = {
     }
 }
 
-export const addPost = (postMessage: string) => {
+export const addPost = () => {
     const newPost: postsDataType = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 0,
     }
 
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
     rerenderEntireTree(state)
 }

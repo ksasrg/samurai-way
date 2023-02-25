@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { addPost, state, stateType, subcribe, updateNewPostText } from './redux/state';
+import './index.css'
 
 
 

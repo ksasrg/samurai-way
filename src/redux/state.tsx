@@ -1,5 +1,6 @@
 import React from 'react';
-import { rerenderEntireTree } from '../render';
+// import { rerenderEntireTree } from '..';
+
 
 
 export type dialogsType = {
@@ -74,6 +75,10 @@ export const state: stateType = {
     }
 }
 
+let rerenderEntireTree = () => {
+
+}
+
 export const addPost = () => {
     const newPost: postsDataType = {
         id: 5,
@@ -83,10 +88,14 @@ export const addPost = () => {
 
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+
+export const subcribe = (observer: any) => {
+    rerenderEntireTree = observer
 }

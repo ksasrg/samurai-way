@@ -32,6 +32,7 @@ function App(props: AppPropsType) {
             render={() =>
               <Dialogs
                 dialogsData={props.state.messagesPage}
+                dispatch={props.dispatch}
               />} />
         </div>
       </div>

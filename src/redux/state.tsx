@@ -2,13 +2,15 @@ import React from 'react';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
+const SEND_MESSAGE = 'SEND-MESSAGE'
 
 export type dialogsType = {
     id: number
     name: string
 }
 
-export type messagesType = {
+export type MessageType = {
     id: number
     message: string
 }
@@ -26,7 +28,8 @@ export type profilePageType = {
 
 export type messagesPageType = {
     dialogs: dialogsType[]
-    messages: messagesType[]
+    messages: MessageType[]
+    newMessageText: string
 }
 
 export type stateType = {
@@ -36,8 +39,11 @@ export type stateType = {
 
 export type AddPostActionType = { type: 'ADD-POST' }
 export type UpdateNewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
+export type UpdateNewMessageTextAction = { type: 'UPDATE-NEW-MESSAGE-BODY', newMessageText: string }
+export type SendMessageActionType = { type: 'SEND-MESSAGE' }
 
 export type DispatchActionType = AddPostActionType | UpdateNewPostTextAction
+    | UpdateNewMessageTextAction | SendMessageActionType
 
 export type StoreType = {
     _state: stateType
@@ -81,6 +87,7 @@ export const store: StoreType = {
                 { id: 6, message: 'Message6' },
                 { id: 7, message: 'Message7' },
             ],
+            newMessageText: ''
         }
     },
     _callSubscriber(state: stateType) { },
@@ -102,7 +109,21 @@ export const store: StoreType = {
             this._state.profilePage.newPostText = ''
             this._callSubscriber(this._state)
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            action.newText && (this._state.profilePage.newPostText = action.newText)
+            action.newText !== null
+                && (this._state.profilePage.newPostText = action.newText)
+            this._callSubscriber(this._state)
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            action.newMessageText !== null
+                && (this._state.messagesPage.newMessageText = action.newMessageText)
+            this._callSubscriber(this._state)
+        } else if (action.type === SEND_MESSAGE) {
+            const newMessage: MessageType = {
+                id: 23,
+                message: this._state.messagesPage.newMessageText
+            }
+
+            this._state.messagesPage.messages.push(newMessage)
+            this._state.messagesPage.newMessageText = ''
             this._callSubscriber(this._state)
         }
     },
@@ -113,3 +134,11 @@ export const addPostActionCreator = (): AddPostActionType =>
 
 export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextAction =>
     ({ type: UPDATE_NEW_POST_TEXT, newText: newText })
+
+export const updateNewMessageActionCreator = (newMessageText: string): UpdateNewMessageTextAction =>
+    ({ type: UPDATE_NEW_MESSAGE_BODY, newMessageText: newMessageText })
+
+export const sendMessageActionCreator = (): SendMessageActionType =>
+    ({ type: SEND_MESSAGE, })
+
+ 

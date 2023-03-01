@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { NavLink } from 'react-router-dom';
-import { dialogsType, messagesPageType, messagesType } from '../../redux/state';
+import { dialogsType, DispatchActionType, messagesPageType, MessageType, sendMessageActionCreator, updateNewMessageActionCreator } from '../../redux/state';
 import DialogItem from './DialogItem/DialogItem';
 import s from './Dialogs.module.css'
 import Message from './Message/Message';
 
 type DialogsPropsType = {
   dialogsData: messagesPageType
+  dispatch: (action: DispatchActionType) => void
 }
 
 
@@ -27,6 +28,19 @@ const Dialogs = (props: DialogsPropsType) => {
     />
   )
 
+  const newMessageTextElement = React.createRef<HTMLTextAreaElement>()
+
+  const textareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (newMessageTextElement.current) {
+      props.dispatch(updateNewMessageActionCreator(newMessageTextElement.current.value))
+    }
+    // props.dispatch(updateNewMessageActionCreator(e.currentTarget.value))
+  }
+
+  const sendMessage = () => {
+    props.dispatch(sendMessageActionCreator())
+  }
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
@@ -34,6 +48,15 @@ const Dialogs = (props: DialogsPropsType) => {
       </div>
       <div className={s.messages}>
         {messagesElements}
+        <div>
+          <textarea
+            ref={newMessageTextElement}
+            onChange={textareaHandler}
+            value={props.dialogsData.newMessageText}
+          ></textarea>
+        </div>
+
+        <button onClick={sendMessage} >Send</button>
       </div>
     </div>
   );

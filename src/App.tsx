@@ -5,10 +5,11 @@ import Dialogs from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
-import { DispatchActionType, stateType } from './redux/state';
+import { RootReducerType } from './redux/redux-store';
+import { DispatchActionType, stateType, StoreType } from './redux/store';
 
 type AppPropsType = {
-  state: stateType
+  state: RootReducerType
   dispatch: (action: DispatchActionType) => void
 }
 

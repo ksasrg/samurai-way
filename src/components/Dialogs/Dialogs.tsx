@@ -1,17 +1,14 @@
-import React, { ChangeEvent } from 'react';
-import { NavLink } from 'react-router-dom';
-import { messagesPageType, sendMessageActionCreator, updateNewMessageActionCreator } from '../../redux/dialogs-reducer';
-import { DispatchActionType } from '../../redux/redux-store';
-// import { dialogsType, DispatchActionType, messagesPageType, MessageType } from '../../redux/store';
+import React from 'react';
+import { messagesPageType } from '../../redux/dialogs-reducer';
 import DialogItem from './DialogItem/DialogItem';
 import s from './Dialogs.module.css'
 import Message from './Message/Message';
 
 type DialogsPropsType = {
   dialogsData: messagesPageType
-  dispatch: (action: DispatchActionType) => void
+  updateNewMessage: (newMessageText: string) => void
+  sendMessage: () => void
 }
-
 
 const Dialogs = (props: DialogsPropsType) => {
 
@@ -32,15 +29,14 @@ const Dialogs = (props: DialogsPropsType) => {
 
   const newMessageTextElement = React.createRef<HTMLTextAreaElement>()
 
-  const textareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const textareaHandler = () => {
     if (newMessageTextElement.current) {
-      props.dispatch(updateNewMessageActionCreator(newMessageTextElement.current.value))
+      props.updateNewMessage(newMessageTextElement.current.value)
     }
-    // props.dispatch(updateNewMessageActionCreator(e.currentTarget.value))
   }
 
   const sendMessage = () => {
-    props.dispatch(sendMessageActionCreator())
+    props.sendMessage()
   }
 
   return (

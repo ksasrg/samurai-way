@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { AddPostActionType, DispatchActionType, postsDataType, profilePageType, UpdateNewPostTextAction } from './store_old';
 // import { AddPostActionType, DispatchActionType, postsDataType, profilePageType, stateType, UpdateNewPostTextAction } from './store';
 

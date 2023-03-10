@@ -1,7 +1,6 @@
-import { combineReducers, createStore, EmptyObject, Store } from "redux";
+import { combineReducers, createStore} from "redux";
 import { dialogsReducer } from "./dialogs-reducer";
 import { profileReducer } from "./profile-reducer";
-import { sidebarReducer } from "./sidebar-reducer";
 
 export type AddPostActionType = { type: 'ADD-POST' }
 export type UpdateNewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
@@ -19,5 +18,3 @@ const reducers = combineReducers({
 export type RootReducerType = ReturnType<typeof reducers>
 
 export const store = createStore(reducers)
-
-

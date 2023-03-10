@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import {  RootReducerType, store } from './redux/redux-store';
 import './index.css'
-import { stateType } from './redux/store';
 
 
 

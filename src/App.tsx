@@ -5,8 +5,7 @@ import Dialogs from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
-import { RootReducerType } from './redux/redux-store';
-import { DispatchActionType, stateType, StoreType } from './redux/store';
+import { DispatchActionType, RootReducerType } from './redux/redux-store';
 
 type AppPropsType = {
   state: RootReducerType

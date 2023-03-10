@@ -1,6 +1,8 @@
 import React from 'react';
 import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profile-reducer';
-import { DispatchActionType, postsDataType } from '../../../redux/store';
+import { DispatchActionType } from '../../../redux/redux-store';
+import { postsDataType } from '../../../redux/store_old';
+// import { DispatchActionType, postsDataType } from '../../../redux/store';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 

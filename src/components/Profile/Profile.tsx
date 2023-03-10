@@ -1,5 +1,7 @@
 import React from 'react';
-import { DispatchActionType, profilePageType } from '../../redux/store';
+import { DispatchActionType } from '../../redux/redux-store';
+import { profilePageType } from '../../redux/store_old';
+// import { DispatchActionType, profilePageType } from '../../redux/store';
 import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';

@@ -1,5 +1,6 @@
 import React from 'react';
-import { AddPostActionType, DispatchActionType, postsDataType, profilePageType, stateType, UpdateNewPostTextAction } from './store';
+import { AddPostActionType, DispatchActionType, postsDataType, profilePageType, UpdateNewPostTextAction } from './store_old';
+// import { AddPostActionType, DispatchActionType, postsDataType, profilePageType, stateType, UpdateNewPostTextAction } from './store';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'

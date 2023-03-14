@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Redirect, Route } from 'react-router-dom';
-import { Store } from 'redux';
+import { Redirect, Route } from 'react-router-dom';
 import './App.css';
 import { DialogsContainer } from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';

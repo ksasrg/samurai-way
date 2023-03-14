@@ -1,5 +1,4 @@
 import React from 'react';
-import { Store } from 'redux';
 import { sendMessageActionCreator, updateNewMessageActionCreator } from '../../redux/dialogs-reducer';
 import { RootReducerType } from '../../redux/redux-store';
 import { StoreContext } from '../../StoreContext';

@@ -16,30 +16,30 @@ const InitialState = {
     newPostText: 'new post',
 }
 
-export const profileReducer = (profileState: profilePageType = InitialState, action: DispatchActionType) => {
+export const profileReducer = (profileState: profilePageType = InitialState, action: DispatchActionType): profilePageType => {
 
     switch (action.type) {
 
         case ADD_POST:
-            const newPost: postsDataType = {
-                id: 5,
-                message: profileState.newPostText,
-                likesCount: 0,
+            return {
+                ...profileState,
+                posts: [
+                    ...profileState.posts,
+                    {
+                        id: 5,
+                        message: profileState.newPostText,
+                        likesCount: 0,
+                    }
+                ],
+                newPostText: '',
             }
 
-            profileState.posts.push(newPost)
-            profileState.newPostText = ''
-            return profileState
-
         case UPDATE_NEW_POST_TEXT:
-            action.newText !== null
-                && (profileState.newPostText = action.newText)
-            return profileState
+            return { ...profileState, newPostText: action.newText }
 
         default:
             return profileState
     }
-
 }
 
 export const addPostActionCreator = (): AddPostActionType =>

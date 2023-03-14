@@ -12,14 +12,9 @@ function App() {
       <Header />
       <Navbar />
       <div className='app-wrapper-content'>
-        <Route path='/' render={() => <Redirect to='/profile' />} />
-        <Route
-          path='/profile'
-          render={() => <Profile />
-          } />
-        <Route
-          path='/dialogs'
-          render={() => <DialogsContainer />} />
+        <Route path='/' render={() => <Redirect to='/profile' />} />        
+        <Route path='/profile' render={() => <Profile />} />
+        <Route path='/dialogs' render={() => <DialogsContainer />} />
       </div>
     </div>
   );

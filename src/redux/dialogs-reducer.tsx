@@ -42,24 +42,25 @@ const InitialState = {
     newMessageText: ''
 }
 
-export const dialogsReducer = (messagesState: messagesPageType = InitialState, action: DispatchActionType) => {
+export const dialogsReducer = (messagesState: messagesPageType = InitialState, action: DispatchActionType): messagesPageType => {
 
     switch (action.type) {
 
         case UPDATE_NEW_MESSAGE_BODY:
-            action.newMessageText !== null
-                && (messagesState.newMessageText = action.newMessageText)
-            return messagesState
+            return { ...messagesState, newMessageText: action.newMessageText }
 
         case SEND_MESSAGE:
-            const newMessage: MessageType = {
-                id: 23,
-                message: messagesState.newMessageText
+            return {
+                ...messagesState,
+                newMessageText: '',
+                messages: [
+                    ...messagesState.messages,
+                    {
+                        id: 23,
+                        message: messagesState.newMessageText
+                    }
+                ]
             }
-
-            messagesState.messages.push(newMessage)
-            messagesState.newMessageText = ''
-            return messagesState
 
         default:
             return messagesState

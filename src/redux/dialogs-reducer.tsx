@@ -1,5 +1,4 @@
 import React from 'react';
-import { DispatchActionType, SendMessageActionType, UpdateNewMessageTextAction } from './redux-store';
 
 export type MessageType = {
     id: number
@@ -16,6 +15,12 @@ export type messagesPageType = {
     messages: MessageType[]
     newMessageText: string
 }
+
+export type UpdateNewMessageTextAction = { type: 'UPDATE-NEW-MESSAGE-BODY', newMessageText: string }
+export type SendMessageActionType = { type: 'SEND-MESSAGE' }
+
+export type DispatchActionType = UpdateNewMessageTextAction | SendMessageActionType
+
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
 const SEND_MESSAGE = 'SEND-MESSAGE'

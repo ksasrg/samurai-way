@@ -1,5 +1,5 @@
 import React from 'react';
-import { postsDataType } from '../../../redux/store_old';
+import { postsDataType } from '../../../redux/profile-reducer';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
@@ -7,7 +7,7 @@ type MyPostsPropsType = {
   posts: postsDataType[]
   newPostText: string
   updateNewPostText: (text: string) => void
-  addPost: ()=> void
+  addPost: () => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {

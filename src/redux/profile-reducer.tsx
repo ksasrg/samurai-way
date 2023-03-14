@@ -1,4 +1,21 @@
-import { AddPostActionType, DispatchActionType, postsDataType, profilePageType, UpdateNewPostTextAction } from './store_old';
+
+
+export type postsDataType = {
+    id: number
+    message: string
+    likesCount: number
+}
+
+export type profilePageType = {
+    posts: postsDataType[]
+    newPostText: string
+}
+
+export type AddPostActionType = { type: 'ADD-POST' }
+export type UpdateNewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
+
+export type DispatchActionType = AddPostActionType | UpdateNewPostTextAction
+
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'

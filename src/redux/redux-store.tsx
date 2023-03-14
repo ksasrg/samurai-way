@@ -1,18 +1,12 @@
 import { combineReducers, createStore } from "redux";
 import { dialogsReducer } from "./dialogs-reducer";
 import { profileReducer } from "./profile-reducer";
-
-export type AddPostActionType = { type: 'ADD-POST' }
-export type UpdateNewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
-export type UpdateNewMessageTextAction = { type: 'UPDATE-NEW-MESSAGE-BODY', newMessageText: string }
-export type SendMessageActionType = { type: 'SEND-MESSAGE' }
-
-export type DispatchActionType = AddPostActionType | UpdateNewPostTextAction
-    | UpdateNewMessageTextAction | SendMessageActionType
+import { usersReducer } from "./users-reducer";
 
 const reducers = combineReducers({
     profilePage: profileReducer,
     messagesPage: dialogsReducer,
+    usersPage: usersReducer,
 })
 
 export type RootReducerType = ReturnType<typeof reducers>

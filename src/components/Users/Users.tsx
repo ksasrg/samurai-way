@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { UserType } from '../../redux/users-reducer';
 
@@ -11,11 +12,14 @@ export type UsersPageType = {
 export const Users = (props: UsersPageType) => {
 
     if (props.users.length === 0) {
-        props.setUsers([
-            { id: 1, photoURL: 'avatar.webp', followed: true, fullName: 'Dmitry', status: 'online', location: { city: 'Minsk', country: 'Belarus' } },
-            { id: 2, photoURL: 'avatar.webp', followed: false, fullName: 'Alexey', status: 'offline', location: { city: 'Moscow', country: 'Russia' } },
-            { id: 3, photoURL: 'avatar.webp', followed: true, fullName: 'Sasha', status: 'home', location: { city: 'Kiev', country: 'Ukraine' } },
-        ])
+        // props.setUsers([
+        //     { id: 1, photoURL: 'avatar.webp', followed: true, fullName: 'Dmitry', status: 'online', location: { city: 'Minsk', country: 'Belarus' } },
+        //     { id: 2, photoURL: 'avatar.webp', followed: false, fullName: 'Alexey', status: 'offline', location: { city: 'Moscow', country: 'Russia' } },
+        //     { id: 3, photoURL: 'avatar.webp', followed: true, fullName: 'Sasha', status: 'home', location: { city: 'Kiev', country: 'Ukraine' } },
+        // ])
+
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        .then((response) => props.setUsers(response.data.items))
     }
 
 
@@ -28,7 +32,7 @@ export const Users = (props: UsersPageType) => {
                         <div key={u.id}>
                             <span>
                                 <div>
-                                    <img src={u.photoURL} style={{ width: '50px' }} />
+                                    <img src={u.photos.small ? u.photos.small : "avatar.webp"} style={{ width: '50px' }} />
                                 </div>
                                 <div>
                                     {u.followed
@@ -40,12 +44,12 @@ export const Users = (props: UsersPageType) => {
                             </span>
                             <span>
                                 <span>
-                                    <div>{u.fullName}</div>
+                                    <div>{u.name}</div>
                                     <div>{u.status}</div>
                                 </span>
                                 <span>
-                                    <div>{u.location.country}</div>
-                                    <div>{u.location.city}</div>
+                                    {/* <div>{u.location.country}</div>
+                                    <div>{u.location.city}</div> */}
                                 </span>
                             </span>
                         </div>

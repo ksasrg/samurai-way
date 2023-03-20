@@ -1,7 +1,7 @@
 import React from 'react';
-import { RootReducerType } from './redux-store';
+import { StoreType } from './redux-store';
 
-export const sidebarReducer = (state: RootReducerType, action: string) => {
+export const sidebarReducer = (state: StoreType, action: string) => {
 
 
 

@@ -7,7 +7,11 @@ export type UserType = {
     id: number
     photoURL: string
     followed: boolean
-    fullName: string
+    name: string
+    photos: {
+        small: string
+        large: string
+    }
     status: string
     location: LocationType
 }

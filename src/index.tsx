@@ -6,6 +6,8 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+// import './components/Users/Users copy.tsx'
+
 ReactDOM.render(
     <BrowserRouter >
         <Provider store={store}  >

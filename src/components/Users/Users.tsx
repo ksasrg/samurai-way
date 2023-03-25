@@ -11,21 +11,23 @@ export type UsersPageType = {
 
 export const Users = (props: UsersPageType) => {
 
-    if (props.users.length === 0) {
-        // props.setUsers([
-        //     { id: 1, photoURL: 'avatar.webp', followed: true, fullName: 'Dmitry', status: 'online', location: { city: 'Minsk', country: 'Belarus' } },
-        //     { id: 2, photoURL: 'avatar.webp', followed: false, fullName: 'Alexey', status: 'offline', location: { city: 'Moscow', country: 'Russia' } },
-        //     { id: 3, photoURL: 'avatar.webp', followed: true, fullName: 'Sasha', status: 'home', location: { city: 'Kiev', country: 'Ukraine' } },
-        // ])
+    const getUsers = () => {
+        if (props.users.length === 0) {
+            // props.setUsers([
+            //     { id: 1, photoURL: 'avatar.webp', followed: true, fullName: 'Dmitry', status: 'online', location: { city: 'Minsk', country: 'Belarus' } },
+            //     { id: 2, photoURL: 'avatar.webp', followed: false, fullName: 'Alexey', status: 'offline', location: { city: 'Moscow', country: 'Russia' } },
+            //     { id: 3, photoURL: 'avatar.webp', followed: true, fullName: 'Sasha', status: 'home', location: { city: 'Kiev', country: 'Ukraine' } },
+            // ])
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-        .then((response) => props.setUsers(response.data.items))
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then((response) => props.setUsers(response.data.items))
+        }
     }
-
 
 
     return (
         <div>
+            <button onClick={getUsers} >get</button>
             {
                 props.users.map(u => {
                     return (

@@ -101,5 +101,3 @@ export const setCurrentPageAC = (page: number) =>
 export type SetTotalUserCountACType = ReturnType<typeof setTotalUserCountAC>
 export const setTotalUserCountAC = (count: number) =>
     ({ type: 'SET-TOTAL-USER-COUNT', count }) as const
-
-

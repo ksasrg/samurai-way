@@ -1,7 +1,8 @@
 import React from 'react';
+import { v1 } from 'uuid';
 
 export type MessageType = {
-    id: number
+    id: string
     message: string
 }
 
@@ -36,13 +37,13 @@ const InitialState = {
         { id: 7, name: 'Name7' },
     ],
     messages: [
-        { id: 1, message: 'Message1' },
-        { id: 2, message: 'Message2' },
-        { id: 3, message: 'Message3' },
-        { id: 4, message: 'Message4' },
-        { id: 5, message: 'Message5' },
-        { id: 6, message: 'Message6' },
-        { id: 7, message: 'Message7' },
+        { id: v1(), message: 'Message1' },
+        { id: v1(), message: 'Message2' },
+        { id: v1(), message: 'Message3' },
+        { id: v1(), message: 'Message4' },
+        { id: v1(), message: 'Message5' },
+        { id: v1(), message: 'Message6' },
+        { id: v1(), message: 'Message7' },
     ],
     newMessageText: ''
 }
@@ -61,7 +62,7 @@ export const dialogsReducer = (messagesState: messagesPageType = InitialState, a
                 messages: [
                     ...messagesState.messages,
                     {
-                        id: 23,
+                        id: v1(),
                         message: messagesState.newMessageText
                     }
                 ]

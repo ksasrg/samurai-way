@@ -12,11 +12,11 @@ function App() {
     <div className='app-wrapper'>
       <Header />
       <Navbar />
-      <div className='app-wrapper-content'>
-        <Route path='/' render={() => <Redirect to='/profile' />} />        
+      <div className='app-wrapper-content'>               
         <Route path='/profile' render={() => <Profile />} />
         <Route path='/dialogs' render={() => <DialogsContainer />} />
         <Route path='/users' render={() => <UsersContainer />} />
+        {/* <Route path='/' render={() => <Redirect to='/profile' />} />  */}
       </div>
     </div>
   );

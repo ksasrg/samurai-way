@@ -1,7 +1,7 @@
-
+import { v1 } from "uuid"
 
 export type postsDataType = {
-    id: number
+    id: string
     message: string
     likesCount: number
 }
@@ -11,19 +11,11 @@ export type profilePageType = {
     newPostText: string
 }
 
-export type AddPostActionType = { type: 'ADD-POST' }
-export type UpdateNewPostTextAction = { type: 'UPDATE-NEW-POST-TEXT', newText: string }
-
-export type DispatchActionType = AddPostActionType | UpdateNewPostTextAction
-
-
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
 const InitialState = {
     posts: [
-        { id: 1, message: 'Post1', likesCount: 10 },
-        { id: 2, message: 'Post2', likesCount: 9 },
+        { id: '1', message: 'Post1', likesCount: 10 },
+        { id: '2', message: 'Post2', likesCount: 9 },
         // { id: 3, message: 'Post3', likesCount: 12 },
         // { id: 4, message: 'Post4', likesCount: 13 },
         // { id: 5, message: 'Post5', likesCount: 14 },
@@ -37,13 +29,13 @@ export const profileReducer = (profileState: profilePageType = InitialState, act
 
     switch (action.type) {
 
-        case ADD_POST:
+        case 'ADD-POST':
             return {
                 ...profileState,
                 posts: [
                     ...profileState.posts,
                     {
-                        id: 5,
+                        id: v1(),
                         message: profileState.newPostText,
                         likesCount: 0,
                     }
@@ -51,7 +43,7 @@ export const profileReducer = (profileState: profilePageType = InitialState, act
                 newPostText: '',
             }
 
-        case UPDATE_NEW_POST_TEXT:
+        case 'UPDATE-NEW-POST-TEXT':
             return { ...profileState, newPostText: action.newText }
 
         default:
@@ -59,8 +51,14 @@ export const profileReducer = (profileState: profilePageType = InitialState, act
     }
 }
 
-export const addPostActionCreator = (): AddPostActionType =>
-    ({ type: ADD_POST, })
+export type DispatchActionType = AddPostActionType | UpdateNewPostTextAction
 
-export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextAction =>
-    ({ type: UPDATE_NEW_POST_TEXT, newText: newText })
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export const addPostActionCreator = () =>
+    ({ type: 'ADD-POST', }) as const
+
+export type UpdateNewPostTextAction = ReturnType<typeof updateNewPostTextActionCreator>
+export const updateNewPostTextActionCreator = (newText: string) =>
+    ({ type: 'UPDATE-NEW-POST-TEXT', newText: newText }) as const
+
+

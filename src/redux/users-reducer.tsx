@@ -18,30 +18,22 @@ export type UserType = {
 
 export type UsersType = {
     users: UserType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
-export type FollowACType = { type: 'FOLLOW', userId: number }
-export type UnfollowACType = { type: 'UNFOLLOW', userId: number }
-export type SetUsersACType = { type: 'SET-USERS', users: UserType[] }
-
-export type DispatchActionType = FollowACType | UnfollowACType | SetUsersACType
-
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET-USERS'
-
 const InitialState: UsersType = {
-    users: [
-        // { id: 1, photoURL: 'avatar.webp', followed: true, fullName: 'Dmitry', status: 'online', location: { city: 'Minsk', country: 'Belarus' } },
-        // { id: 2, photoURL: 'avatar.webp', followed: false, fullName: 'Alexey', status: 'offline', location: { city: 'Moscow', country: 'Russia' } },
-        // { id: 3, photoURL: 'avatar.webp', followed: true, fullName: 'Sasha', status: 'home', location: { city: 'Kiev', country: 'Ukraine' } },
-    ],
+    users: [],
+    pageSize: 10,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 export const usersReducer = (state: UsersType = InitialState, action: DispatchActionType): UsersType => {
 
     switch (action.type) {
-        case FOLLOW:
+        case 'FOLLOW':
             return {
                 ...state,
                 users: state.users.map(user =>
@@ -51,7 +43,7 @@ export const usersReducer = (state: UsersType = InitialState, action: DispatchAc
                 )
             }
 
-        case UNFOLLOW:
+        case 'UNFOLLOW':
             return {
                 ...state,
                 users: state.users.map(user =>
@@ -61,10 +53,22 @@ export const usersReducer = (state: UsersType = InitialState, action: DispatchAc
                 )
             }
 
-        case SET_USERS:
+        case 'SET-USERS':
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users]
+            }
+
+        case 'SET-CURRENT-PAGE':
+            return {
+                ...state,
+                currentPage: action.page
+            }
+
+        case 'SET-TOTAL-USER-COUNT':
+            return {
+                ...state,
+                totalUsersCount: action.count
             }
 
         default:
@@ -72,10 +76,30 @@ export const usersReducer = (state: UsersType = InitialState, action: DispatchAc
     }
 }
 
-export const followAC = (userId: number): FollowACType =>
-    ({ type: FOLLOW, userId })
-export const unfollowAC = (userId: number): UnfollowACType =>
-    ({ type: UNFOLLOW, userId })
-export const setUsersAC = (users: UserType[]): SetUsersACType =>
-    ({ type: SET_USERS, users })
+export type DispatchActionType = FollowACType
+    | UnfollowACType
+    | SetUsersACType
+    | SetCurrentPageACType
+    | SetTotalUserCountACType
+
+export type FollowACType = ReturnType<typeof followAC>
+export const followAC = (userId: number) =>
+    ({ type: 'FOLLOW', userId }) as const
+
+export type UnfollowACType = ReturnType<typeof unfollowAC>
+export const unfollowAC = (userId: number) =>
+    ({ type: 'UNFOLLOW', userId }) as const
+
+export type SetUsersACType = ReturnType<typeof setUsersAC>
+export const setUsersAC = (users: UserType[]) =>
+    ({ type: 'SET-USERS', users }) as const
+
+export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
+export const setCurrentPageAC = (page: number) =>
+    ({ type: 'SET-CURRENT-PAGE', page }) as const
+
+export type SetTotalUserCountACType = ReturnType<typeof setTotalUserCountAC>
+export const setTotalUserCountAC = (count: number) =>
+    ({ type: 'SET-TOTAL-USER-COUNT', count }) as const
+
 

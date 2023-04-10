@@ -91,26 +91,26 @@ export type DispatchActionType = FollowACType
     | SetTotalUserCountACType
     | SetIsFetchingACType
 
-export type FollowACType = ReturnType<typeof followAC>
-export const followAC = (userId: number) =>
+export type FollowACType = ReturnType<typeof follow>
+export const follow = (userId: number) =>
     ({ type: 'FOLLOW', userId }) as const
 
-export type UnfollowACType = ReturnType<typeof unfollowAC>
-export const unfollowAC = (userId: number) =>
+export type UnfollowACType = ReturnType<typeof unfollow>
+export const unfollow = (userId: number) =>
     ({ type: 'UNFOLLOW', userId }) as const
 
-export type SetUsersACType = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: UserType[]) =>
+export type SetUsersACType = ReturnType<typeof setUsers>
+export const setUsers = (users: UserType[]) =>
     ({ type: 'SET-USERS', users }) as const
 
-export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-export const setCurrentPageAC = (page: number) =>
+export type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
+export const setCurrentPage = (page: number) =>
     ({ type: 'SET-CURRENT-PAGE', page }) as const
 
-export type SetTotalUserCountACType = ReturnType<typeof setTotalUserCountAC>
-export const setTotalUserCountAC = (count: number) =>
+export type SetTotalUserCountACType = ReturnType<typeof setTotalUserCount>
+export const setTotalUserCount = (count: number) =>
     ({ type: 'SET-TOTAL-USER-COUNT', count }) as const
 
-export type SetIsFetchingACType = ReturnType<typeof setIsFetchingAC>
-export const setIsFetchingAC = (isFetching: boolean) =>
+export type SetIsFetchingACType = ReturnType<typeof toggleIsFetching>
+export const toggleIsFetching = (isFetching: boolean) =>
     ({ type: 'TOGGLE-IS-FETCHING', isFetching }) as const

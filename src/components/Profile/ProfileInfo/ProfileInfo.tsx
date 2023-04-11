@@ -21,7 +21,7 @@ const ProfileInfo = (props: PropsType) => {
         <div>
           About: {props.profile.aboutMe}
         </div>
-        
+
       </div>
     </div>
   );

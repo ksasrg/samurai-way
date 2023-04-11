@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import { UserType } from '../../redux/users-reducer'
 import style from './Users.module.css'
 
@@ -39,7 +40,9 @@ export const Users = (props: PropsType) => {
                         <div key={u.id}>
                             <span>
                                 <div>
-                                    <img src={u.photos.small ? u.photos.small : "avatar.webp"} style={{ width: '50px' }} />
+                                    <NavLink to={'/profile/' + u.id}>
+                                        <img src={u.photos.small ? u.photos.small : "avatar.webp"} style={{ width: '50px' }} />
+                                    </NavLink>
                                 </div>
                                 <div>
                                     {u.followed

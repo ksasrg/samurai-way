@@ -13,7 +13,10 @@ class HeaderAPIContainer extends React.Component<HeaderAPIContainerPropsType> {
 
     componentDidMount(): void {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                'API-KEY': '20b1af3b-5a7c-4983-a025-9f9dbeabc720'
+            }
         })
             .then((response) => {
                 // debugger
@@ -29,7 +32,7 @@ class HeaderAPIContainer extends React.Component<HeaderAPIContainerPropsType> {
     }
 
     render() {
-        return <Header {...this.props}/>
+        return <Header {...this.props} />
     }
 }
 

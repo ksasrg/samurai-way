@@ -1,3 +1,5 @@
+import { followAPI, usersAPI } from "../api/api"
+
 export type LocationType = {
     city: string
     country: string
@@ -131,3 +133,49 @@ export const toggleIsFetching = (isFetching: boolean) =>
 export type ToggleFollowingInProgressACType = ReturnType<typeof toggleFollowingInProgress>
 export const toggleFollowingInProgress = (isFollowingInProgress: boolean, userId: number) =>
     ({ type: 'TOGGLE-FOLLOWING_PROGRESS', isFollowingInProgress, userId }) as const
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) =>
+    (dispatch: any) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUserCount(data.totalCount))
+                dispatch(toggleIsFetching(false))
+            })
+    }
+
+export const onPageChangeThunkCreator = (page: number, pageSize: number) =>
+    (dispatch: any) => {
+        dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(page))
+        usersAPI.getUsers(page, pageSize)
+            .then(data => {
+                dispatch(setUsers(data.items))
+                dispatch(toggleIsFetching(false))
+            })
+    }
+
+export const followThunkCreator = (userId: number) =>
+    (dispatch: any) => {
+        dispatch(toggleFollowingInProgress(true, userId))
+        followAPI.followUser(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(follow(userId))
+            }
+            dispatch(toggleFollowingInProgress(false, userId))
+        })
+    }
+
+
+export const unfollowThunkCreator = (userId: number) =>
+    (dispatch: any) => {
+        dispatch(toggleFollowingInProgress(true, userId))
+        followAPI.unfollowUser(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollow(userId))
+            }
+            dispatch(toggleFollowingInProgress(false, userId))
+        })
+    }

@@ -1,4 +1,5 @@
-import { followAPI, usersAPI } from "../api/api"
+import { usersAPI } from "../api/api"
+import { Dispatch } from "redux"
 
 export type LocationType = {
     city: string
@@ -79,13 +80,13 @@ export const usersReducer = (state: UsersType = InitialState, action: DispatchAc
                 totalUsersCount: action.count
             }
 
-        case 'TOGGLE-IS-FETCHING':
+        case 'TOGGLE-ISFETCHING':
             return {
                 ...state,
                 isFetching: action.isFetching
             }
 
-        case 'TOGGLE-FOLLOWING_PROGRESS':
+        case 'TOGGLE-FOLLOWING-PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.isFollowingInProgress
@@ -106,12 +107,12 @@ export type DispatchActionType = FollowACType
     | SetIsFetchingACType
     | ToggleFollowingInProgressACType
 
-export type FollowACType = ReturnType<typeof follow>
-export const follow = (userId: number) =>
+export type FollowACType = ReturnType<typeof followAC>
+export const followAC = (userId: number) =>
     ({ type: 'FOLLOW', userId }) as const
 
-export type UnfollowACType = ReturnType<typeof unfollow>
-export const unfollow = (userId: number) =>
+export type UnfollowACType = ReturnType<typeof unfollowAC>
+export const unfollowAC = (userId: number) =>
     ({ type: 'UNFOLLOW', userId }) as const
 
 export type SetUsersACType = ReturnType<typeof setUsers>
@@ -128,15 +129,15 @@ export const setTotalUserCount = (count: number) =>
 
 export type SetIsFetchingACType = ReturnType<typeof toggleIsFetching>
 export const toggleIsFetching = (isFetching: boolean) =>
-    ({ type: 'TOGGLE-IS-FETCHING', isFetching }) as const
+    ({ type: 'TOGGLE-ISFETCHING', isFetching }) as const
 
 export type ToggleFollowingInProgressACType = ReturnType<typeof toggleFollowingInProgress>
 export const toggleFollowingInProgress = (isFollowingInProgress: boolean, userId: number) =>
-    ({ type: 'TOGGLE-FOLLOWING_PROGRESS', isFollowingInProgress, userId }) as const
+    ({ type: 'TOGGLE-FOLLOWING-PROGRESS', isFollowingInProgress, userId }) as const
 
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) =>
-    (dispatch: any) => {
+export const getUsers = (currentPage: number, pageSize: number) =>
+    (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true))
         usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
@@ -146,8 +147,8 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) =>
             })
     }
 
-export const onPageChangeThunkCreator = (page: number, pageSize: number) =>
-    (dispatch: any) => {
+export const onPageChange = (page: number, pageSize: number) =>
+    (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
         usersAPI.getUsers(page, pageSize)
@@ -157,24 +158,24 @@ export const onPageChangeThunkCreator = (page: number, pageSize: number) =>
             })
     }
 
-export const followThunkCreator = (userId: number) =>
-    (dispatch: any) => {
+export const follow = (userId: number) =>
+    (dispatch: Dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId))
-        followAPI.followUser(userId).then(data => {
+        usersAPI.followUser(userId).then(data => {
             if (data.resultCode === 0) {
-                dispatch(follow(userId))
+                dispatch(followAC(userId))
             }
             dispatch(toggleFollowingInProgress(false, userId))
         })
     }
 
 
-export const unfollowThunkCreator = (userId: number) =>
-    (dispatch: any) => {
+export const unfollow = (userId: number) =>
+    (dispatch: Dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId))
-        followAPI.unfollowUser(userId).then(data => {
+        usersAPI.unfollowUser(userId).then(data => {
             if (data.resultCode === 0) {
-                dispatch(unfollow(userId))
+                dispatch(unfollowAC(userId))
             }
             dispatch(toggleFollowingInProgress(false, userId))
         })

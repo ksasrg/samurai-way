@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StoreType } from '../../redux/redux-store';
 import {
-    followThunkCreator, getUsersThunkCreator, onPageChangeThunkCreator,
-    unfollowThunkCreator, UserType
+    follow, getUsers, onPageChange,
+    unfollow, UserType
 } from '../../redux/users-reducer';
 import { Users } from './Users';
 import { Preloader } from '../Preloader/Preloader';
@@ -16,20 +16,20 @@ export type UsersPageType = {
     isFetching: boolean
     isFollowingInProgress: boolean
     followingInProgress: number[]
-    followThunkCreator: (userId: number) => void,
-    unfollowThunkCreator: (userId: number) => void,
-    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
-    onPageChangeThunkCreator: (page: number, pageSize: number) => void
+    follow: (userId: number) => void,
+    unfollow: (userId: number) => void,
+    getUsers: (currentPage: number, pageSize: number) => void
+    onPageChange: (page: number, pageSize: number) => void
 }
 
 export class UsersAPIComponent extends React.Component<UsersPageType> {
 
     componentDidMount(): void {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    onPageChanged = (page: number): void => {
-        this.props.onPageChangeThunkCreator(page, this.props.pageSize)
+    onPageChangeHandler = (page: number): void => {
+        this.props.onPageChange(page, this.props.pageSize)
     }
 
     render() {
@@ -41,9 +41,9 @@ export class UsersAPIComponent extends React.Component<UsersPageType> {
                 pageSize={this.props.pageSize}
                 totalUsersCount={this.props.totalUsersCount}
                 currentPage={this.props.currentPage}
-                followThunkCreator={this.props.followThunkCreator}
-                unfollowThunkCreator={this.props.unfollowThunkCreator}
-                onPageChanged={this.onPageChanged}
+                followThunkCreator={this.props.follow}
+                unfollowThunkCreator={this.props.unfollow}
+                onPageChanged={this.onPageChangeHandler}
                 isFollowingInProgress={this.props.isFollowingInProgress}
                 followingInProgress={this.props.followingInProgress}
             />
@@ -64,8 +64,8 @@ const mapStateToProps = (state: StoreType) => {
 }
 
 export const UsersContainer = connect(mapStateToProps, {
-    getUsersThunkCreator,
-    onPageChangeThunkCreator,
-    followThunkCreator,
-    unfollowThunkCreator,
+    getUsers,
+    onPageChange,
+    follow,
+    unfollow,
 })(UsersAPIComponent)

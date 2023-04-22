@@ -24,6 +24,7 @@ export const authReducer = (state: AuthState = InitialState, action: UserAuthDis
                 ...state,
                 ...action.data,
                 isAuth: true
+                // isAuth: false //debug
             }
 
         default:

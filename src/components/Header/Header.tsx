@@ -7,11 +7,14 @@ import logo from './../../images/logo.webp'
 const Header = (props: HeaderPropsType) => {
   return (
     <header className={s.header}>
-      <img src={logo}  alt="" />
+      <img src={logo} alt="" />
 
       <div className={s.loginBlock}>
-        {props.isAuth && props.login}
-        <NavLink to={'/login'}>Login</NavLink>
+        {props.isAuth
+          ? props.login
+          : <NavLink to={'/login'}>Login</NavLink>
+        }
+
       </div>
     </header>
   );

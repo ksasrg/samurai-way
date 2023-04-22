@@ -1,4 +1,6 @@
+import { Dispatch } from "redux"
 import { v1 } from "uuid"
+import { usersAPI } from "../api/api"
 
 export type postsDataType = {
     id: string
@@ -26,6 +28,7 @@ const InitialState = {
     ] as postsDataType[],
     newPostText: 'new post',
     profile: {
+        userId: '',
         aboutMe: '',
         fullName: '',
         photos: {
@@ -66,6 +69,7 @@ export const profileReducer = (profileState: profilePageType = InitialState, act
 export type DispatchActionType = AddPostActionType
     | UpdateNewPostTextAction | SetUserProfileAction
 
+
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
 export const addPostActionCreator = () =>
     ({ type: 'ADD-POST', }) as const
@@ -77,4 +81,14 @@ export const updateNewPostTextActionCreator = (newText: string) =>
 export type SetUserProfileAction = ReturnType<typeof setUserProfile>
 export const setUserProfile = (profile: profileType) =>
     ({ type: 'SET-USER-PROFILE', profile }) as const
+
+
+export const getUserProfile = (userId: number) =>
+    (dispatch: Dispatch) => {
+        usersAPI.getProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data))
+            })
+    }
+
 

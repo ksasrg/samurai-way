@@ -5,16 +5,16 @@ import { usersReducer } from "./users-reducer";
 import { authReducer } from "./auth-reducer";
 import thunkMiddleWare from 'redux-thunk'
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     messagesPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
 })
 
-export type StoreType = ReturnType<typeof reducers>
+export type StoreType = ReturnType<typeof rootReducer>
 
-export const store = createStore(reducers, applyMiddleware(thunkMiddleWare))
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleWare))
 
 // @ts-ignore
 window.store = store

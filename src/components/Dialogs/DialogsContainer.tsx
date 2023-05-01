@@ -3,6 +3,7 @@ import { DispatchActionType, sendMessageActionCreator, updateNewMessageActionCre
 import { StoreType } from '../../redux/redux-store';
 import Dialogs from './Dialogs';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 const mapStateToProps = (state: StoreType) => {
   return {
@@ -21,4 +22,7 @@ const mapDispatchToProps = (dispatch: (action: DispatchActionType) => void) => {
   }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(withAuthRedirect(Dialogs))
+export const DialogsContainer = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect,
+)(Dialogs)

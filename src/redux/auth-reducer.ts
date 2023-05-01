@@ -23,7 +23,7 @@ export const authReducer = (state: AuthState = InitialState, action: UserAuthDis
             return {
                 ...state,
                 ...action.data,
-                // isAuth: true
+                isAuth: true
                 // isAuth: false //debug
             }
 

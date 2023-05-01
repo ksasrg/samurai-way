@@ -13,12 +13,12 @@ const mapStateToProps = (state: StoreType): MapStatePropsType => {
     }
 }
 
-export function withAuthRedirect<T>(Component: ComponentType<T>) {
+export function withAuthRedirect(Component: any) {
     const RedirectComponent = (props: MapStatePropsType) => {
         const { isAuth, ...restProps } = props
 
         return isAuth
-            ? <Component {...restProps as T} />
+            ? <Component {...restProps} />
             : <Redirect to={'/login'} />
     }
 

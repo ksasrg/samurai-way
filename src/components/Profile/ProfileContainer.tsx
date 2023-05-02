@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { Profile } from './Profile';
 import { StoreType } from '../../redux/redux-store';
 import { getUserProfile, profileType } from '../../redux/profile-reducer';
@@ -45,7 +45,7 @@ const mapStateToProps = (state: StoreType) => {
 }
 
 
-export const ProfileContainer = compose(
+export const ProfileContainer = compose<ComponentType>(
     withAuthRedirect,
     withRouter,
     connect(mapStateToProps, { getUserProfile, })

@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { Profile } from './Profile';
 import { StoreType } from '../../redux/redux-store';
-import { getUserProfile, profileType } from '../../redux/profile-reducer';
+import { getStatus, getUserProfile, profileType, updateStatus } from '../../redux/profile-reducer';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
@@ -16,23 +16,32 @@ type PropsType =
     RouteComponentProps<PathParamsType> &
     {
         profile: profileType
+        status: string
         getUserProfile: (userId: number) => void
+        getStatus: (userId: number) => void
+        updateStatus: (status: string) => void
     }
 
 class ProfileAPIContainer extends React.Component<PropsType> {
 
     componentDidMount(): void {
         let userId = this.props.match.params.userId
-        if (!userId) userId = '2'
+        // if (!userId) userId = '2'
+        if (!userId) userId = '28426'
 
         this.props.getUserProfile(Number(userId))
+        this.props.getStatus(Number(userId))
     }
 
 
     render() {
         return (
             <div>
-                <Profile profile={this.props.profile} />
+                <Profile
+                    profile={this.props.profile}
+                    status={this.props.status}
+                    updateStatus={this.props.updateStatus}
+                />
             </div>
         )
     }
@@ -41,6 +50,7 @@ class ProfileAPIContainer extends React.Component<PropsType> {
 const mapStateToProps = (state: StoreType) => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 }
 
@@ -48,6 +58,6 @@ const mapStateToProps = (state: StoreType) => {
 export const ProfileContainer = compose<ComponentType>(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, { getUserProfile, })
+    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus })
 )(ProfileAPIContainer)
 

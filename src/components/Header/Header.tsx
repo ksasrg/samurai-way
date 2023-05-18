@@ -4,14 +4,18 @@ import { NavLink } from 'react-router-dom';
 import { HeaderPropsType } from './HeaderContainer';
 import logo from './../../images/logo.webp'
 
-const Header = (props: HeaderPropsType) => {
+type PropsType = HeaderPropsType & {
+  logoutTC: () => void
+}
+
+const Header = (props: PropsType) => {
   return (
     <header className={s.header}>
       <img src={logo} alt="" />
 
       <div className={s.loginBlock}>
         {props.isAuth
-          ? props.login
+          ? <div>{props.login} <button onClick={props.logoutTC}>Logout</button></div>
           : <NavLink to={'/login'}>Login</NavLink>
         }
 

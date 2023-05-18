@@ -8,11 +8,6 @@ export type postsDataType = {
     likesCount: number
 }
 
-// export type profilePageType = {
-//     posts: postsDataType[]
-//     newPostText: string
-// }
-
 export type profilePageType = typeof InitialState
 export type profileType = typeof InitialState.profile
 
@@ -26,7 +21,6 @@ const InitialState = {
         // { id: 6, message: 'Post6', likesCount: 15 },
         // { id: 7, message: 'Post7', likesCount: 106 },
     ] as postsDataType[],
-    newPostText: 'new post',
     profile: {
         userId: '',
         aboutMe: '',
@@ -47,18 +41,14 @@ export const profileReducer = (profileState: profilePageType = InitialState, act
             return {
                 ...profileState,
                 posts: [
-                    ...profileState.posts,
                     {
                         id: v1(),
-                        message: profileState.newPostText,
+                        message: action.newPostText,
                         likesCount: 0,
-                    }
+                    },
+                    ...profileState.posts,
                 ],
-                newPostText: '',
             }
-
-        case 'UPDATE-NEW-POST-TEXT':
-            return { ...profileState, newPostText: action.newText }
 
         case 'SET-USER-PROFILE':
             return { ...profileState, profile: action.profile }
@@ -75,17 +65,13 @@ export const profileReducer = (profileState: profilePageType = InitialState, act
 }
 
 export type DispatchActionType = AddPostActionType
-    | UpdateNewPostTextAction | SetUserProfileAction
+    | SetUserProfileAction
     | setStatusAction
 
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export const addPostActionCreator = () =>
-    ({ type: 'ADD-POST', }) as const
-
-export type UpdateNewPostTextAction = ReturnType<typeof updateNewPostTextActionCreator>
-export const updateNewPostTextActionCreator = (newText: string) =>
-    ({ type: 'UPDATE-NEW-POST-TEXT', newText: newText }) as const
+export const addPostActionCreator = (newPostText: string) =>
+    ({ type: 'ADD-POST', newPostText }) as const
 
 export type SetUserProfileAction = ReturnType<typeof setUserProfile>
 export const setUserProfile = (profile: profileType) =>

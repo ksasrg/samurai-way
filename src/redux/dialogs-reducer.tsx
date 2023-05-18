@@ -10,20 +10,7 @@ export type dialogsType = {
     name: string
 }
 
-export type messagesPageType = {
-    dialogs: dialogsType[]
-    messages: MessageType[]
-    newMessageText: string
-}
-
-export type UpdateNewMessageTextAction = { type: 'UPDATE-NEW-MESSAGE-BODY', newMessageText: string }
-export type SendMessageActionType = { type: 'SEND-MESSAGE' }
-
-export type DispatchActionType = UpdateNewMessageTextAction | SendMessageActionType
-
-
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
-const SEND_MESSAGE = 'SEND-MESSAGE'
+export type DispatchActionType = SendMessageActionType
 
 const InitialState = {
     dialogs: [
@@ -44,25 +31,21 @@ const InitialState = {
         { id: v1(), message: 'Message6' },
         { id: v1(), message: 'Message7' },
     ],
-    newMessageText: ''
 }
+
+export type messagesPageType = typeof InitialState
 
 export const dialogsReducer = (messagesState: messagesPageType = InitialState, action: DispatchActionType): messagesPageType => {
 
     switch (action.type) {
-
-        case UPDATE_NEW_MESSAGE_BODY:
-            return { ...messagesState, newMessageText: action.newMessageText }
-
-        case SEND_MESSAGE:
+        case 'SEND-MESSAGE':
             return {
                 ...messagesState,
-                newMessageText: '',
                 messages: [
                     ...messagesState.messages,
                     {
                         id: v1(),
-                        message: messagesState.newMessageText
+                        message: action.newMessageText
                     }
                 ]
             }
@@ -73,8 +56,6 @@ export const dialogsReducer = (messagesState: messagesPageType = InitialState, a
     }
 }
 
-export const updateNewMessageActionCreator = (newMessageText: string): UpdateNewMessageTextAction =>
-    ({ type: UPDATE_NEW_MESSAGE_BODY, newMessageText: newMessageText })
-
-export const sendMessageActionCreator = (): SendMessageActionType =>
-    ({ type: SEND_MESSAGE, })
+export type SendMessageActionType = ReturnType<typeof sendMessageAC>
+export const sendMessageAC = (newMessageText: string) =>
+    ({ type: 'SEND-MESSAGE', newMessageText } as const) 

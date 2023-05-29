@@ -20,6 +20,8 @@ type PropsType =
         getUserProfile: (userId: number) => void
         getStatus: (userId: number) => void
         updateStatus: (status: string) => void
+        authorizedUserId: number,
+        isAuth: boolean,
     }
 
 class ProfileAPIContainer extends React.Component<PropsType> {
@@ -27,7 +29,7 @@ class ProfileAPIContainer extends React.Component<PropsType> {
     componentDidMount(): void {
         let userId = this.props.match.params.userId
         // if (!userId) userId = '2'
-        if (!userId) userId = '28426'
+        if (!userId) userId = this.props.authorizedUserId.toString()
 
         this.props.getUserProfile(Number(userId))
         this.props.getStatus(Number(userId))
@@ -50,7 +52,9 @@ class ProfileAPIContainer extends React.Component<PropsType> {
 const mapStateToProps = (state: StoreType) => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth,
     }
 }
 

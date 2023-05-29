@@ -42,6 +42,10 @@ const LoginForm = (props: any) => {
         <div>
             <Field type="checkbox" name='remeberMe' component={Input} />Remember me
         </div>
+        {props.error &&
+            <div style={{ color: 'red' }}>
+                {props.error}
+            </div>}
         <div>
             <button>Login</button>
         </div>
@@ -49,7 +53,11 @@ const LoginForm = (props: any) => {
 }
 
 const LoginResuxForm = reduxForm({
-    form: 'login'
+    form: 'login',
+    initialValues: {
+        email: process.env.REACT_APP_EMAIL || '',
+        password: process.env.REACT_APP_PASS || '',
+    }
 })(LoginForm)
 
 const mapStateToProps = (state: StoreType) => {

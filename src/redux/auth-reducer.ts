@@ -1,6 +1,7 @@
 import { Dispatch } from "redux"
 import { authAPI } from "../api/api"
 import { stopSubmit } from "redux-form"
+import { setInitialisedAC } from "./app.reducer"
 
 export type AuthState = {
     userId: number | null,
@@ -43,8 +44,11 @@ export const getAuthUserData = () =>
                 if (data.resultCode === 0) {
                     const { id, email, login } = data.data
                     dispatch(setAuthUserData(id, email, login, true))
+
                     console.log(id, email, login); // debug
                 }
+            }).finally(() => {
+                dispatch(setInitialisedAC(true))
             })
     }
 

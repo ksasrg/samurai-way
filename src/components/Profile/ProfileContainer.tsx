@@ -28,8 +28,9 @@ class ProfileAPIContainer extends React.Component<PropsType> {
 
     componentDidMount(): void {
         let userId = this.props.match.params.userId
-        // if (!userId) userId = '2'
-        if (!userId) userId = this.props.authorizedUserId.toString()
+        if (!userId) {
+            userId = this.props.authorizedUserId.toString()
+        }
 
         this.props.getUserProfile(Number(userId))
         this.props.getStatus(Number(userId))
